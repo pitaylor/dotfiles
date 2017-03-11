@@ -12,6 +12,5 @@ PATH="/usr/local/opt/coreutils/libexec/gnubin:${PATH}"
 platform=$(uname)
 base_dir=$(readlink --canonicalize "$(dirname "${0}")")
 
-ln -fns "${base_dir}" ~/.dotfiles
 make_links "${base_dir}/default"
 make_links "${base_dir}/${platform}"
