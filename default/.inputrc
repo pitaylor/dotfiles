@@ -1,0 +1,8 @@
+"\e[A": history-search-backward
+"\e[B": history-search-forward
+"\e[5C": forward-word
+"\e[5D": backward-word
+"\e[1C": kill-word
+"\e[1D": backward-kill-word
+
+set completion-ignore-case on
