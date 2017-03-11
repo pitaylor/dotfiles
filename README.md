@@ -2,5 +2,5 @@
 
 Install dotfiles:
 ```bash
-curl -sSL https://github.com/pitaylor/dotfiles/blob/master/bootstrap.sh | bash 
+curl -sSL https://raw.githubusercontent.com/pitaylor/dotfiles/master/bootstrap.sh | bash 
 ```
