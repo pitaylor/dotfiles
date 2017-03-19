@@ -1,5 +1,12 @@
 #!/usr/bin/env bash
 
+# Bootstrap the project
+if [ ! -e ~/.dotfiles ]; then
+  git clone https://github.com/pitaylor/dotfiles.git ~/.dotfiles
+  ~/.dotfiles/install.sh
+  exit
+fi
+
 make_links() {
   if [ -d "${1}" ]; then
     cp -fvrs "${1}/." "${HOME}"
