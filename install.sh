@@ -7,8 +7,10 @@ make_links() {
 }
 
 install_profile() {
-  if ! grep -q '$HOME/.dotfiles/profile.sh' "${1}"; then
+  if  [ -s "${1}" ] && ! grep -q '$HOME/.dotfiles/profile.sh' "${1}"; then
     echo '[ -s "$HOME/.dotfiles/profile.sh" ] && source "$HOME/.dotfiles/profile.sh"' >> "${1}"
+  else
+    return 1
   fi
 }
 
@@ -18,13 +20,12 @@ PATH="/usr/local/opt/coreutils/libexec/gnubin:${PATH}"
 platform=$(uname)
 base_dir=$(readlink --canonicalize "$(dirname "${0}")")
 
-# Symlink dot files to home directory
+# Create symlinks to files in the "default" directory
 make_links "${base_dir}/default"
+
+# Create symlinks to files in the platform-specific directory
 make_links "${base_dir}/${platform}"
 
 # Load profile.sh from .bash_profile or .profile
-if [ -s "${HOME}/.bash_profile" ]; then
-  install_profile "${HOME}/.bash_profile"
-elif [ -s "${HOME}/.profile" ]; then
+install_profile "${HOME}/.bash_profile" ||
   install_profile "${HOME}/.profile"
-fi
