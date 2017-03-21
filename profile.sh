@@ -2,6 +2,7 @@
 
 # Aliases
 alias dir='ls -l'
+alias dotpull='git -C ~/.dotfiles pull && ~/.dotfiles/install.sh && echo "Done!"'
 alias less='less --raw'
 alias ls='ls -G'
 

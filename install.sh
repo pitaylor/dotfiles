@@ -14,8 +14,9 @@ make_links() {
 }
 
 install_profile() {
-  if  [ -s "${1}" ] && ! grep -q '$HOME/.dotfiles/profile.sh' "${1}"; then
-    echo '[ -s "$HOME/.dotfiles/profile.sh" ] && source "$HOME/.dotfiles/profile.sh"' >> "${1}"
+  if  [ -e "${1}" ]; then
+    grep -q '$HOME/.dotfiles/profile.sh' "${1}" ||
+      echo '[ -s "$HOME/.dotfiles/profile.sh" ] && source "$HOME/.dotfiles/profile.sh"' >> "${1}"
   else
     return 1
   fi
