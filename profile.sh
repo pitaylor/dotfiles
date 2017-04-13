@@ -19,3 +19,10 @@ if [ -d ~/projects ]; then
     [ "${prefix}" != "" ] && alias cd${prefix}="cd \"${d}\""
   done
 fi
+
+# Invokes one of several project script variants
+p() {
+  for script in ./project.sh ./bin/project.sh ./build.sh ./bin/build.sh; do
+    if [ -x "${script}" ]; then ${script} "${@}"; return ${?}; fi
+  done
+}
