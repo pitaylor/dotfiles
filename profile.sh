@@ -27,4 +27,6 @@ p() {
   for script in ./project.sh ./bin/project.sh ./build.sh ./bin/build.sh; do
     if [ -x "${script}" ]; then ${script} "${@}"; return ${?}; fi
   done
+  echo 'No project.sh script found'
+  return 1
 }
