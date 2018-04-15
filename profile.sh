@@ -14,15 +14,25 @@ if [ ! -f ~/.restic ]; then
 #export RESTIC_PASSWORD_FILE=password-file
 
 # Files/directories to backup with "backup" command
-export RESTIC_TARGETS=( ~/Documents ~/Pictures )
+export BACKUP_TARGETS=( ~/Documents ~/Pictures )
+
+# Uncomment to use sudo when running restic with "backup" command
+#export BACKUP_USE_SUDO=1
 SHELL
 fi
 
 chmod 600 ~/.restic
 source ~/.restic
 
+backup() {
+  if [[ "${BACKUP_USE_SUDO}" == "1" ]]; then
+    sudo -E restic backup "${BACKUP_TARGETS[@]}"
+  else
+    restic backup "${BACKUP_TARGETS[@]}"
+  fi
+}
+
 # Aliases
-alias backup="restic backup ${RESTIC_TARGETS[@]}"
 alias dir='ls -l'
 alias dotpull='git -C ~/.dotfiles pull && ~/.dotfiles/install.sh && echo "Done!"'
 alias less='less --raw'
