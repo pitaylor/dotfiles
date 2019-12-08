@@ -3,6 +3,9 @@
 set -e
 set -o pipefail
 
+# On macOS have coreutils preempt default commands
+PATH="/usr/local/opt/coreutils/libexec/gnubin:${PATH}"
+
 # Bootstrap the project
 if [[ ! -e ~/.dotfiles ]]; then
   git clone https://github.com/pitaylor/dotfiles.git ~/.dotfiles
@@ -10,7 +13,7 @@ if [[ ! -e ~/.dotfiles ]]; then
   exit
 fi
 
-make_links() {
+create_links() {
   local dir="${1:?dir is missing}"
 
   if [[ -d "${dir}" ]]; then
@@ -18,7 +21,7 @@ make_links() {
   fi
 }
 
-install_profile() {
+install_script() {
   local source="${1:?source is missing}"
   local target="${2:?target is missing}"
 
@@ -27,18 +30,13 @@ install_profile() {
   fi
 }
 
-# On macOS have coreutils preempt default commands
-PATH="/usr/local/opt/coreutils/libexec/gnubin:${PATH}"
-
 # Symlink platform-agnostic and platform-specific files to home directory
-platform=$(uname)
-base_dir=$(readlink --canonicalize "$(dirname "${0}")")
-make_links "${base_dir}/default"
-make_links "${base_dir}/${platform}"
+create_links "${HOME}/.dotfiles/Default"
+create_links "${HOME}/.dotfiles/$(uname)"
 
 # Hook into .bash_profile and .bashrc
-install_profile "\${HOME}/.dotfiles/bin/profile.sh" "${HOME}/.bash_profile"
-install_profile "\${HOME}/.dotfiles/bin/bashrc.sh" "${HOME}/.bashrc"
+install_script "\${HOME}/.dotfiles/bin/profile.sh" "${HOME}/.bash_profile"
+install_script "\${HOME}/.dotfiles/bin/bashrc.sh" "${HOME}/.bashrc"
 
 # Install homebrew packages
 if type brew &>/dev/null; then
