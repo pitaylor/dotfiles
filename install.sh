@@ -38,9 +38,4 @@ create_links "${HOME}/.dotfiles/$(uname)"
 install_script "\${HOME}/.dotfiles/bin/profile.sh" "${HOME}/.bash_profile"
 install_script "\${HOME}/.dotfiles/bin/bashrc.sh" "${HOME}/.bashrc"
 
-# Install homebrew packages
-if type brew &>/dev/null; then
-  brew bundle --global
-fi
-
 echo 'Done!'
