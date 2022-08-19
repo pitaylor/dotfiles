@@ -1,5 +1,18 @@
 #!/usr/bin/env bash
 
+# Better bash history
+#
+# https://www.thomaslaurenson.com/blog/2018/07/02/better-bash-history/
+
+HISTFILESIZE=10000
+HISTSIZE=10000
+HISTCONTROL=ignoreboth
+
+shopt -s histappend
+shopt -s cmdhist
+
+export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$"\n"}history -a; history -c; history -r"
+
 dotpull() {
   git -C ~/.dotfiles pull && ~/.dotfiles/install.sh
 }
