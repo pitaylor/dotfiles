@@ -1,4 +1,6 @@
 brew "bash"
 brew "bash-completion"
+brew "coreutils"
+brew "fzf"
 brew "tmux"
 brew "z"
