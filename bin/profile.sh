@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# Suppress zsh message on macOS
+export BASH_SILENCE_DEPRECATION_WARNING=1
+
 # Source homebrew completion scripts
 if type brew &>/dev/null; then
   HOMEBREW_PREFIX="$(brew --prefix)"
