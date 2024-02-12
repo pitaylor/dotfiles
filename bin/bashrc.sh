@@ -20,6 +20,7 @@ dot-brew() { brew bundle install --file=~/.Brewfile; }
 dot-pull() { git -C ~/.dotfiles pull && ~/.dotfiles/install.py; }
 
 alias dir='ls -l'
+alias gco="git checkout \$(git recent-branches | fzf --no-info)"
 alias less='less --raw'
 alias ls='ls -G'
 alias sup=supervisorctl
