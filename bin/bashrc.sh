@@ -16,8 +16,8 @@ export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$"\n"}history -a; histor
 HOMEBREW_PREFIX="$(brew --prefix)"
 [[ -r "${HOMEBREW_PREFIX}/etc/profile.d/z.sh" ]] && source "${HOMEBREW_PREFIX}/etc/profile.d/z.sh"
 
-dotbrew() { brew bundle install --file=~/.Brewfile; }
-dotpull() { git -C ~/.dotfiles pull && ~/.dotfiles/install.sh; }
+dot-brew() { brew bundle install --file=~/.Brewfile; }
+dot-pull() { git -C ~/.dotfiles pull && ~/.dotfiles/install.py; }
 
 alias dir='ls -l'
 alias less='less --raw'
