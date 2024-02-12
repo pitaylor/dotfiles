@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>KeepAlive</key>
+  <true/>
+  <key>Label</key>
+  <string>net.entangle.dotfiles.sleepwatcher</string>
+  <key>LimitLoadToSessionType</key>
+  <array>
+    <string>Aqua</string>
+    <string>Background</string>
+    <string>LoginWindow</string>
+    <string>StandardIO</string>
+    <string>System</string>
+  </array>
+  <key>ProgramArguments</key>
+  <array>
+    <string>$BREW_PREFIX/sbin/sleepwatcher</string>
+    <string>-V</string>
+    <string>--sleep</string><string>$HOME/.config/sleepwatcher/commands sleep</string>
+    <string>--wakeup</string><string>$HOME/.config/sleepwatcher/commands wakeup</string>
+    <string>--displaysleep</string><string>$HOME/.config/sleepwatcher/commands displaysleep</string>
+    <string>--displaywakeup</string><string>$HOME/.config/sleepwatcher/commands displaywakeup</string>
+    <string>--plug</string><string>$HOME/.config/sleepwatcher/commands plug</string>
+    <string>--unplug</string><string>$HOME/.config/sleepwatcher/commands unplug</string>
+  </array>
+  <key>RunAtLoad</key>
+  <true/>
+</dict>
+</plist>
