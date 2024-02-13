@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+kasa=~/.venvs/kasa/bin/kasa
+plug_address="192.168.1.145"
+
+if [ ! -f ~/.venvs/kasa/python3 ]; then
+  mkdir -p ~/.venvs/kasa
+  python3 -mvenv --prompt kasa ~/.venvs/kasa
+fi
+
+if [ ! -f ${kasa} ]; then
+  ~/.venvs/kasa/bin/pip install python-kasa[speedups]
+fi
+
+${kasa} --type plug --host ${plug_address} "${@}"

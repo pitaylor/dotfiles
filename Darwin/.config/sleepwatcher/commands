@@ -1,33 +1,22 @@
 #!/usr/bin/env bash
 
 display_name="DELL U2723QE"
-plug_address="192.168.1.145"
-kasa=~/.venvs/kasa/bin/kasa
 
-workstation() {
+connected_to_workstation() {
   system_profiler SPDisplaysDataType | grep "${display_name}" >/dev/null
 }
 
-if [ ! -f ~/.venvs/kasa/python3 ]; then
-  mkdir -p ~/.venvs/kasa
-  python3 -mvenv --prompt kasa ~/.venvs/kasa
-fi
-
-if [ ! -f ${kasa} ]; then
-  ~/.venvs/kasa/bin/pip install python-kasa[speedups]
-fi
-
 case "${1}" in
   displaywakeup|plug|wakeup)
-    sleep 5
-    if workstation; then
-      ${kasa} --type plug --host ${plug_address} on
+    sleep 3
+    if connected_to_workstation; then
+      ~/bin/computer_speakers on
     fi
   ;;
 
   displaysleep|sleep)
-    if workstation; then
-      ${kasa} --type plug --host ${plug_address} off
+    if connected_to_workstation; then
+      ~/bin/computer_speakers off
     fi
   ;;
 

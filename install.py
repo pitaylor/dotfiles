@@ -2,6 +2,7 @@
 
 import os
 import platform
+import shutil
 import subprocess
 import sys
 import textwrap
@@ -44,6 +45,9 @@ if __name__ == '__main__':
         subprocess.check_call(['git', 'clone', '-b', dotfiles_branch, dotfiles_repo, dotfiles_dir])
         subprocess.check_call([dotfiles_dir / 'install.py'])
         sys.exit()
+
+    if rendered_dir.exists():
+        shutil.rmtree(rendered_dir)
 
     for source_dir in source_dirs:
         render(source_dir, rendered_dir, template_vars)
