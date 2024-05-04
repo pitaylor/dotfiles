@@ -37,7 +37,7 @@ template_vars = {'HOME': Path.home()}
 
 try:
     template_vars['BREW_PREFIX'] = subprocess.check_output(['brew', '--prefix']).decode('UTF-8').strip()
-except subprocess.CalledProcessError:
+except (subprocess.CalledProcessError, FileNotFoundError):
     pass
 
 if __name__ == '__main__':
