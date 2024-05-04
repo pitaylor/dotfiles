@@ -13,10 +13,12 @@ shopt -s cmdhist
 
 export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$"\n"}history -a; history -c; history -r"
 
-HOMEBREW_PREFIX="$(brew --prefix)"
-[[ -r "${HOMEBREW_PREFIX}/etc/profile.d/z.sh" ]] && source "${HOMEBREW_PREFIX}/etc/profile.d/z.sh"
+if type brew &>/dev/null; then
+  HOMEBREW_PREFIX="$(brew --prefix)"
+  [[ -r "${HOMEBREW_PREFIX}/etc/profile.d/z.sh" ]] && source "${HOMEBREW_PREFIX}/etc/profile.d/z.sh"
+  dot-brew() { brew bundle install --file=~/.Brewfile; }
+fi
 
-dot-brew() { brew bundle install --file=~/.Brewfile; }
 dot-pull() { git -C ~/.dotfiles pull && ~/.dotfiles/install.py; }
 
 alias dir='ls -l'
