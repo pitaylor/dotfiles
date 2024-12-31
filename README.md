@@ -3,5 +3,5 @@
 ## Installation
 
 ```bash
-curl -sSL https://raw.githubusercontent.com/pitaylor/dotfiles/main/install.py | python3
+curl -sSL https://raw.githubusercontent.com/pitaylor/dotfiles/refs/heads/main/install.py | python3
 ```
