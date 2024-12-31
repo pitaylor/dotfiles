@@ -12,23 +12,23 @@ def render(source_dir: Path, dest_dir: Path, variables: dict):
     - dest_dir: target directory for the rendered files.
     - variables: dictionary of variables to substitute in the templates.
     """
-    for source in source_dir.rglob('*.tmpl'):
-        target_file = source.relative_to(source_dir).with_suffix('')
+    for source in source_dir.rglob("*.tmpl"):
+        target_file = source.relative_to(source_dir).with_suffix("")
         content = source.read_text()
         template = Template(content)
 
-        print(f'Rendering {target_file}')
+        print(f"Rendering {target_file}")
 
         try:
             rendered = template.substitute(variables)
         except KeyError as e:
-            print(f'  Missing key: {e}. Skipped!')
+            print(f"  Missing key: {e}. Skipped!")
             continue
 
         output_file = dest_dir / target_file
         output_file.parent.mkdir(parents=True, exist_ok=True)
 
-        with open(output_file, 'w') as f:
+        with open(output_file, "w") as f:
             f.write(rendered)
 
         output_file.chmod(source.stat().st_mode)
@@ -51,14 +51,14 @@ def symlink(source_dir: Path, target_dir: Path):
             source_file = dir_path / file
             target_file = target_path / file
 
-            if target_file.suffix == '.tmpl':
+            if target_file.suffix == ".tmpl":
                 continue
 
-            print(f'Linking ~/{target_file.relative_to(target_dir)}')
+            print(f"Linking ~/{target_file.relative_to(target_dir)}")
 
             if target_file.exists():
                 if not target_file.samefile(source_file):
-                    print(f'  Conflict found. Skipped!')
+                    print(f"  Conflict found. Skipped!")
             else:
                 target_file.unlink(missing_ok=True)
                 target_file.symlink_to(source_file)
@@ -79,5 +79,5 @@ def inject(source: str, target: Path):
     except FileNotFoundError:
         pass
 
-    with target.open('a') as file:
+    with target.open("a") as file:
         file.write(f'\n[[ -s "{source}" ]] && source "{source}"\n')

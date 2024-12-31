@@ -13,37 +13,54 @@ try:
 except ModuleNotFoundError:
     pass
 
-# Dotfiles repository URL
-dotfiles_repo = 'git@github.com:pitaylor/dotfiles.git'
+ssh_works = False
+
+try:
+    result = subprocess.run(
+        ["ssh", "-T", "git@github.com"], capture_output=True, text=True, timeout=5
+    )
+    ssh_works = "successfully authenticated" in result.stderr.lower()
+except (subprocess.TimeoutError, subprocess.SubprocessError):
+    pass
+
+dotfiles_repo = (
+    "git@github.com:pitaylor/dotfiles.git"
+    if ssh_works
+    else "https://github.com/pitaylor/dotfiles.git"
+)
 
 # Optionally override checkout branch
-dotfiles_branch = os.getenv('BRANCH', 'main')
+dotfiles_branch = os.getenv("BRANCH", "main")
 
 # Directory where repository is checked out
-dotfiles_dir = Path.home() / '.dotfiles'
+dotfiles_dir = Path.home() / ".dotfiles"
 
 # Directory where template files are rendered
-rendered_dir = dotfiles_dir / 'rendered'
+rendered_dir = dotfiles_dir / "rendered"
 
 # Directories that contain files to be symlinked
-source_dirs = [dotfiles_dir / 'Default']
+source_dirs = [dotfiles_dir / "Default"]
 
 # Include platform specific source directory
 if (platform_dir := dotfiles_dir / platform.system()).exists():
     source_dirs.append(platform_dir)
 
 # Template variables
-template_vars = {'HOME': Path.home()}
+template_vars = {"HOME": Path.home()}
 
 try:
-    template_vars['BREW_PREFIX'] = subprocess.check_output(['brew', '--prefix']).decode('UTF-8').strip()
+    template_vars["BREW_PREFIX"] = (
+        subprocess.check_output(["brew", "--prefix"]).decode("UTF-8").strip()
+    )
 except (subprocess.CalledProcessError, FileNotFoundError):
     pass
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     if not dotfiles_dir.exists():
-        subprocess.check_call(['git', 'clone', '-b', dotfiles_branch, dotfiles_repo, dotfiles_dir])
-        subprocess.check_call([dotfiles_dir / 'install.py'])
+        subprocess.check_call(
+            ["git", "clone", "-b", dotfiles_branch, dotfiles_repo, dotfiles_dir]
+        )
+        subprocess.check_call([dotfiles_dir / "install.py"])
         sys.exit()
 
     if rendered_dir.exists():
@@ -57,15 +74,17 @@ if __name__ == '__main__':
 
     symlink(rendered_dir, Path.home())
 
-    inject('${HOME}/.dotfiles/bin/profile.sh', Path.home() / '.bash_profile')
-    inject('${HOME}/.dotfiles/bin/bashrc.sh', Path.home() / '.bashrc')
+    inject("${HOME}/.dotfiles/bin/profile.sh", Path.home() / ".bash_profile")
+    inject("${HOME}/.dotfiles/bin/bashrc.sh", Path.home() / ".bashrc")
 
-    message = textwrap.dedent("""
+    message = textwrap.dedent(
+        """
     Useful Commands:
     
     dot-brew - install homebrew packages
     dot-pull - pull latest dotfiles
-    """)
+    """
+    )
 
-    print('Done!')
+    print("Done!")
     print(message)
