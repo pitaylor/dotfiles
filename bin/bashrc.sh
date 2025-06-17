@@ -23,9 +23,10 @@ dot-pull() { git -C ~/.dotfiles pull && ~/.dotfiles/install.py; }
 
 alias dir='ls -l'
 alias gco="git checkout \$(git recent-branches | fzf --no-info)"
+alias k=kubectl
 alias less='less --raw'
 alias ls='ls -G'
-alias sup=supervisorctl
-alias supd=supervisord
+alias sv=supervisorctl
+alias svd=supervisord
 alias tmcopy='tmux load-buffer -'
 alias tmpaste='tmux save-buffer -'
