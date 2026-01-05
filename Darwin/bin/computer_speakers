@@ -1,7 +1,14 @@
 #!/usr/bin/env bash
 
 kasa=~/.venvs/kasa/bin/kasa
-plug_address="192.168.1.145"
+
+# Disabled for now
+#plug_address="<put-ip-address-here>"
+
+if [ -z "${plug_address}" ]; then
+  echo "Error: plug_address is not defined or is empty" >&2
+  exit 1
+fi
 
 if [ ! -f ~/.venvs/kasa/python3 ]; then
   mkdir -p ~/.venvs/kasa
