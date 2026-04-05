@@ -1,1 +1,4 @@
-shell-integration-features = ssh-terminfo
+shell-integration-features = cursor,no-sudo,title,no-ssh-env,ssh-terminfo,path
+
+theme = Github Dark Default
+ 
