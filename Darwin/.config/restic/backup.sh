@@ -20,6 +20,13 @@ set -a
 source "$RESTIC_CONFIG_DIR/.env"
 set +a
 
+PRE_BACKUP_SCRIPT="$RESTIC_CONFIG_DIR/pre-backup.sh"
+if [[ -x "$PRE_BACKUP_SCRIPT" ]]; then
+  log "Running pre-backup script"
+  "$PRE_BACKUP_SCRIPT"
+  log "Pre-backup script finished"
+fi
+
 log "Starting backup"
 
 BACKUP_ARGS=(--verbose)

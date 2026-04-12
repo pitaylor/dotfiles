@@ -51,4 +51,12 @@ __pycache__
 .terraform
 EOF
 
+create_if_missing pre-backup.sh <<'EOF'
+#!/bin/bash
+set -euo pipefail
+
+# Commands to run before the backup starts.
+EOF
+chmod +x "$DIR/pre-backup.sh"
+
 echo "Done. Edit .env and includes.txt, then run: restic init"
