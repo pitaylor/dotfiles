@@ -1,6 +1,8 @@
 #!/bin/bash
 set -euo pipefail
 
+export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
+
 RESTIC_CONFIG_DIR="$HOME/.config/restic"
 LOG_PREFIX="[restic-backup]"
 
