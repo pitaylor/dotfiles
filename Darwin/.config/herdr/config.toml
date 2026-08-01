@@ -1,0 +1,10 @@
+[keys]
+# tmux-style bindings (prefix is ctrl+b by default, already tmux-compatible)
+detach = "prefix+d"
+split_horizontal = "prefix+%"
+split_vertical = 'prefix+"'
+
+[ui]
+# tmux-style shared single-line pane dividers instead of a box per pane
+pane_borders = true
+pane_gaps = false
