@@ -1,10 +1,26 @@
 [keys]
-# tmux-style bindings (prefix is ctrl+b by default, already tmux-compatible)
+prefix = "ctrl+b"
+
+help = "prefix+?"
 detach = "prefix+d"
-split_horizontal = "prefix+%"
-split_vertical = 'prefix+"'
+copy_mode = "prefix+["
+
+# Panes
+split_horizontal = "prefix+\""
+split_vertical = "prefix+%"
+close_pane = "prefix+x"
+zoom = "prefix+z"
+last_pane = "prefix+;"
+cycle_pane_next = "prefix+o"
+
+# Windows -> tabs
+new_tab = "prefix+c"
+rename_tab = "prefix+,"
+close_tab = "prefix+ampersand"
+switch_tab = "prefix+1..9"
+previous_tab = "prefix+p"
+next_tab = "prefix+n"
 
 [ui]
-# tmux-style shared single-line pane dividers instead of a box per pane
 pane_borders = true
 pane_gaps = false
